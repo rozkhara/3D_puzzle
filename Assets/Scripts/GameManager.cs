@@ -4,35 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    List<int> cubeList = new List<int>();
+    public static GameManager instance;
 
-    [SerializeField]
-    private GameObject cube;
-    [SerializeField]
-    private Transform[] spawnPoint;
+    public Stage stage;
 
-    void Start()
+    void Awake()
     {
-        for (int i = 0; i < 27; i++)
+        if (instance == null)
         {
-            cubeList.Add(i);
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-        int cnt = Random.Range(1, 28);
-        for (int i = 0; i < cnt; i++)
+        else
         {
-            Spawn();
+            Destroy(this.gameObject);
         }
-    }
-
-    void Update()
-    {
-        
-    }
-
-    void Spawn()
-    {
-        int ran = Random.Range(0, cubeList.Count);
-        Instantiate(cube, spawnPoint[cubeList[ran]].position, spawnPoint[cubeList[ran]].rotation);
-        cubeList.RemoveAt(ran);
     }
 }
