@@ -19,7 +19,6 @@ public class Stage : MonoBehaviour
             cubeList.Add(i);
         }
         int cnt = Random.Range(1, 28);
-        print(cnt);
         for (int i = 0; i < cnt; i++)
         {
             Spawn();
