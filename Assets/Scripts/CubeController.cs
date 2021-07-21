@@ -19,10 +19,10 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.right * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.right * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.right * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.right * (90 - 90 * timer * speed), Space.World);
     }
 
     public void Down()
@@ -36,10 +36,10 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.left * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.left * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.left * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.left * (90 - 90 * timer * speed), Space.World);
     }
 
     public void Left()
@@ -53,10 +53,10 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.up * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.up * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.up * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.up * (90 - 90 * timer * speed), Space.World);
     }
 
     public void Right()
@@ -70,10 +70,10 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.down * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.down * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.down * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.down * (90 - 90 * timer * speed), Space.World);
     }
 
 
@@ -89,10 +89,10 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.back * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.back * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.back * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.back * (90 - 90 * timer * speed), Space.World);
     }
 
     public void CounterClock()
@@ -106,9 +106,9 @@ public class CubeController : MonoBehaviour
         while (timer * speed < 1f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.transform.Rotate(Vector3.forward * 90 * Time.deltaTime * speed, Space.World);
+            GameManager.instance.stage.cubes.Rotate(Vector3.forward * 90 * Time.deltaTime * speed, Space.World);
             yield return null;
         }
-        GameManager.instance.stage.cubes.transform.Rotate(Vector3.forward * (90 - 90 * timer * speed), Space.World);
+        GameManager.instance.stage.cubes.Rotate(Vector3.forward * (90 - 90 * timer * speed), Space.World);
     }
 }
