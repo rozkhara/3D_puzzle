@@ -5,7 +5,7 @@ using UnityEngine;
 public class ViewController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Camera camera;
+    private Camera cam;
     private float width;
     private float height;
     private float aspect;
@@ -13,16 +13,15 @@ public class ViewController : MonoBehaviour
     void Start()
     {
         ratio = 1 / 3.0f;
-        camera = gameObject.GetComponent<Camera>();
+        cam = gameObject.GetComponent<Camera>();
         width = Screen.width;
         height = Screen.height;
         if (height > width)
         {
             ratio = ratio / width * height;
         }
-        camera.orthographicSize = 6/ratio;
-        Debug.Log(6 / ratio);
-        camera.transform.position = new Vector3(-camera.orthographicSize /height * width + 4 ,-camera.orthographicSize+4,-10);
+        cam.orthographicSize = 6/ratio;
+        cam.transform.position = new Vector3(-cam.orthographicSize /height * width + 4 ,-cam.orthographicSize+4,-10);
     }
 
 }

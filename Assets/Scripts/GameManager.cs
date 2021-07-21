@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public CubeController cube;
     public Stage stage;
+    public Plane plane;
 
     void Awake()
     {

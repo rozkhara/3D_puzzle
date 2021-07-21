@@ -10,27 +10,82 @@ public class Plane : MonoBehaviour
     private float time;
     public float firstDist;
     private float curTime;
+    public GameObject[] cubes = new GameObject[9];
+    public GameObject collection;
+    bool isCollision = false;
+    bool isLack = false;
+    public bool isLoading = false;
     void Start()
-    {
-        time = (firstDist+2.5f) / speed;
-        curTime = 0.0f;
-        transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
+    { 
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        curTime += Time.deltaTime;
-        if(curTime >= time)
+        if(!isLoading)
         {
-            //curTime = 0;
-            /*if (isCorrect()) StartNewStage();
-            else GameOver();*/
+            if (isCollision)
+            {
+                isLoading = true;   
+                Debug.Log("GAME OVER! by Collision");
+            }
+            curTime += Time.deltaTime;
+            if (curTime >= time)
+            {
+                LackTest();
+                if (isLack)
+                {
+                    Debug.Log("GAME OVER! by Lack");
+                    isLoading = true;
+                }
+                else
+                {
+                    StartCoroutine(GameManager.instance.stage.StartNewStage());
+                }
 
-        }
-        else
-        {
-            transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed;
+
+            }
+            else
+            {
+                transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed;
+            }
         }
     }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        isCollision = true;
+    }
+    
+    private void LackTest()
+    {
+        RaycastHit hit;
+        float maxDist = 7.5f;
+
+        bool isRay;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Vector3 curPos = new Vector3(0, 0, 4.5f) + new Vector3(1-i, 1-j, 0)*2;
+                isRay = Physics.Raycast(curPos, new Vector3(0,0,-1), out hit, maxDist);
+                if (!isRay)
+                {
+                    Debug.Log(i+""+j);
+                    isLack = true;
+                    return;
+                }
+            }
+        }
+    }
+    public void BasicSetting() // 나중에 인자 추가 필요
+    {
+        time = (firstDist + 2f) / speed;
+        curTime = 0.0f;
+        transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
+    }
 }
+
