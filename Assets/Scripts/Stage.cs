@@ -8,6 +8,7 @@ public class Stage : MonoBehaviour
 
     [SerializeField]
     private GameObject cube;
+    [SerializeField]
     private GameObject[] group;
     [SerializeField]
     private Transform[] spawnPoint;
@@ -49,15 +50,18 @@ public class Stage : MonoBehaviour
     }
     void Spawn()
     {
+        /*
         var go = Instantiate(group[Random.Range(0, group.Length)]);
         go.transform.parent = cubes;
+        */
 
-        /*
-        int ran = Random.Range(0, cubeList.Count);
+
+        //int ran = Random.Range(0, cubeList.Count);
+        int ran = SampleGaussian(0, cubeList.Count);
         var go = Instantiate(cube, spawnPoint[cubeList[ran]].transform.position, spawnPoint[cubeList[ran]].rotation);
         go.transform.parent = cubes;
         cubeList.RemoveAt(ran);
-        */
+        
     }
 
     void DeterminePlane()
@@ -130,4 +134,24 @@ public class Stage : MonoBehaviour
         }
         cubeList.Clear();
     }
+
+    public static int SampleGaussian(int min, int max)
+    {
+
+        double mean = (min + max) / 2;
+        double sigma = (max - mean) / 3;
+
+        System.Random random = new System.Random();
+        // The method requires sampling from a uniform random of (0,1]
+        // but Random.NextDouble() returns a sample of [0,1).
+        double x1 = 1 - random.NextDouble();
+        double x2 = 1 - random.NextDouble();
+
+        double y1 = System.Math.Sqrt(-2.0 * System.Math.Log(x1)) * System.Math.Cos(2.0 * System.Math.PI * x2);
+        var returnVal = y1 * sigma + mean;
+        returnVal = (int)System.Math.Round(returnVal, System.MidpointRounding.AwayFromZero);
+        return (int)returnVal;
+    }
+
+
 }
