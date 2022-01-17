@@ -2651,7 +2651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cube: {fileID: 4724147543575611782, guid: 0c192394827a3e245a54ae47b209051f, type: 3}
   group: []
-  spawnPoint:
+  spawnPoints:
   - {fileID: 1093714478}
   - {fileID: 2019644610}
   - {fileID: 317058760}
