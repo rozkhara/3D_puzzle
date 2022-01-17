@@ -7,36 +7,68 @@ public class Swipe : MonoBehaviour
 
     [SerializeField]
     float rotationSpeed = 100f;
-    bool dragging = false;
+    //bool dragging = false;
+    CubeController cubeController;
     Rigidbody rb;
+    float x, y;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cubeController = GameObject.Find("GameManager").GetComponent<GameManager>().cube;
     }
 
-    private void OnMouseDrag()
-    {
-        dragging = true;
-    }
+    //private void OnMouseDrag()
+    //{
+    //    dragging = true;
+    //}
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0)) dragging = false;
+        if (Input.GetMouseButtonUp(0))
+        {
+            //dragging = false;
+            if (x != 0f || y != 0f)
+            {
+                if (Mathf.Abs(x) > Mathf.Abs(y))
+                {
+                    if (x > 0)
+                    {
+                        cubeController.Right();
+                    }
+                    else
+                    {
+                        cubeController.Left();
+                    }
+                }
+                else
+                {
+                    if (y > 0)
+                    {
+                        cubeController.Up();
+                    }
+                    else
+                    {
+                        cubeController.Down();
+                    }
+                }
+                x = 0f;
+                y = 0f;
+            }
+
+        }
     }
 
     private void FixedUpdate()
     {
-        if (dragging)
+        //if (dragging)
+        if (Input.GetMouseButton(0))
         {
-            float x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
-            float y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
-
-            rb.AddTorque(Vector3.down * x);
-            rb.AddTorque(Vector3.right * y);
+            x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
+            y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
         }
     }
 }
