@@ -55,10 +55,10 @@ public class Swipe : MonoBehaviour
                         cubeController.Down();
                     }
                 }
-                x = 0f;
-                y = 0f;
-            }
 
+            }
+            x = 0f;
+            y = 0f;
         }
     }
 

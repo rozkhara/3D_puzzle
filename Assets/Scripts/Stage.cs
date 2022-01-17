@@ -40,7 +40,7 @@ public class Stage : MonoBehaviour
         {
             cubeList.Add(i);
         }
-        int cnt = Random.Range(1, 28);
+        int cnt = SampleGaussian(1, 28);
         for (int i = 0; i < cnt; i++)
         {
             Spawn();
@@ -56,8 +56,8 @@ public class Stage : MonoBehaviour
         */
 
 
-        //int ran = Random.Range(0, cubeList.Count);
-        int ran = SampleGaussian(0, cubeList.Count);
+        int ran = Random.Range(0, cubeList.Count);
+        //int ran = SampleGaussian(0, cubeList.Count);
         var go = Instantiate(cube, spawnPoint[cubeList[ran]].transform.position, spawnPoint[cubeList[ran]].rotation);
         go.transform.parent = cubes;
         cubeList.RemoveAt(ran);
