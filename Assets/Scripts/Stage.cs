@@ -108,7 +108,6 @@ public class Stage : MonoBehaviour
             default:
                 Debug.Log("indexError");
                 return new Vector3(-100, -100, -100);
-
         }
     }
 
