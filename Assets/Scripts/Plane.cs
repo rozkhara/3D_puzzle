@@ -14,15 +14,32 @@ public class Plane : MonoBehaviour
     public GameObject collection;
     bool isCollision = false;
     bool isLack = false;
+    bool accelerated = false;
     public bool isLoading = false;
     void Start()
     { 
        
     }
-
+    private void FixedUpdate()
+    {
+    }
     // Update is called once per frame
     void Update()
     {
+        
+        if (!accelerated && Input.GetKeyDown(KeyCode.X))
+        {
+            speed *= 3;
+            time /= 3;
+            curTime /= 3;
+            accelerated = true;
+        }
+        if (accelerated && Input.GetKeyUp(KeyCode.X)){
+            speed /= 3;
+            time *= 3;
+            curTime *= 3;
+            accelerated = false;
+        }
         if(!isLoading)
         {
             if (isCollision)
@@ -41,6 +58,12 @@ public class Plane : MonoBehaviour
                 }
                 else
                 {
+                    if (accelerated)
+                    {
+                        accelerated = false;
+                        speed /= 3;
+                        time *= 3;
+                    }
                     StartCoroutine(GameManager.instance.stage.StartNewStage());
                 }
 
