@@ -49,15 +49,10 @@ public class Stage : MonoBehaviour
     }
     void Spawn()
     {
-        var go = Instantiate(group[Random.Range(0, group.Length)]);
-        go.transform.parent = cubes;
-
-        /*
         int ran = Random.Range(0, cubeList.Count);
         var go = Instantiate(cube, spawnPoint[cubeList[ran]].transform.position, spawnPoint[cubeList[ran]].rotation);
         go.transform.parent = cubes;
         cubeList.RemoveAt(ran);
-        */
     }
 
     void DeterminePlane()
@@ -104,7 +99,6 @@ public class Stage : MonoBehaviour
             default:
                 Debug.Log("indexError");
                 return new Vector3(-100, -100, -100);
-
         }
     }
 
