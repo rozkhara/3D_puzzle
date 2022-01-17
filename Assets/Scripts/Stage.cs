@@ -5,17 +5,18 @@ using UnityEngine;
 public class Stage : MonoBehaviour
 {
     List<int> cubeList = new List<int>();
+    List<Vector3> cubePosList = new List<Vector3>();
 
     [SerializeField]
     private GameObject cube;
     [SerializeField]
     private GameObject[] group;
     [SerializeField]
-    private Transform[] spawnPoint;
+    private Transform[] spawnPoints;
     public Transform cubes;
     public bool[,] data = new bool[,] { { false, false, false }, { false, false, false }, { false, false, false } };
     Vector3[] positions = new Vector3[6] { new Vector3(0, 0, -5), new Vector3(0, 5, 0), new Vector3(0, 0, 5), new Vector3(0, -5, 0), new Vector3(5, 0, 0), new Vector3(-5, 0, 0) };
-    Vector3[] directions = new Vector3[6] { new Vector3(0, 0, 1), new Vector3(0, -1, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(-1, 0, 0), new Vector3(1, 0, 0) };
+    Vector3[] directions = new Vector3[6] { new Vector3(0, 0, 2), new Vector3(0, -2, 0), new Vector3(0, 0, -2), new Vector3(0, 2, 0), new Vector3(-2, 0, 0), new Vector3(2, 0, 0) };
     public int stageNum = 0;
     void Start()
     {
@@ -30,6 +31,8 @@ public class Stage : MonoBehaviour
     {
         Debug.Log("Stage" + ++stageNum + "!");
         DestroyCubes();
+        cubePosList.Clear();
+
         GameManager.instance.plane.BasicSetting();
         GameManager.instance.plane.isLoading = true;
         //Debug.Log("CHILD:"+GameManager.instance.cube.transform.childCount);
@@ -40,11 +43,36 @@ public class Stage : MonoBehaviour
         {
             cubeList.Add(i);
         }
-        int cnt = SampleGaussian(1, 28);
-        for (int i = 0; i < cnt; i++)
+        int cnt = Random.Range(1, 28);
+
+        // 첫 큐브 생성
+        Vector3 center = spawnPoints[Random.Range(0, 27)].transform.position;
+        var tmp = Instantiate(cube, center, Quaternion.identity);
+        tmp.transform.parent = cubes;
+        
+        // 이후 큐브 생성
+        for (int i = 0; i < cnt - 1; i++)
         {
-            Spawn();
+            for(int j = 0; j < 6; j++)
+            {
+                if ((center + directions[j]).x <= 2 && (center + directions[j]).x >= -2 &&
+                    (center + directions[j]).y <= 2 && (center + directions[j]).y >= -2 &&
+                    (center + directions[j]).z <= 2 && (center + directions[j]).z >= -2)
+                {
+                    cubePosList.Add(center + directions[j]);
+                }
+            }
+
+            Vector3 ranPos = cubePosList[Random.Range(0, cubePosList.Count)];
+            var go = Instantiate(cube, ranPos, Quaternion.identity);
+            go.transform.parent = cubes;
+
+            center = ranPos;
+            cubePosList.Remove(ranPos);
+
+            // Spawn();
         }
+
         DeterminePlane();
         ConstructPlane();
     }
@@ -56,12 +84,16 @@ public class Stage : MonoBehaviour
         */
 
 
-        int ran = Random.Range(0, cubeList.Count);
-        //int ran = SampleGaussian(0, cubeList.Count);
-        var go = Instantiate(cube, spawnPoint[cubeList[ran]].transform.position, spawnPoint[cubeList[ran]].rotation);
+        //int ran = Random.Range(0, cubeList.Count);
+
+        /*
+        int ran = SampleGaussian(0, cubeList.Count);
+        var go = Instantiate(cube, spawnPoints[cubeList[ran]].transform.position, spawnPoints[cubeList[ran]].rotation);
         go.transform.parent = cubes;
         cubeList.RemoveAt(ran);
-        
+        */
+
+
     }
 
     void DeterminePlane()
@@ -108,6 +140,7 @@ public class Stage : MonoBehaviour
             default:
                 Debug.Log("indexError");
                 return new Vector3(-100, -100, -100);
+
         }
     }
 
