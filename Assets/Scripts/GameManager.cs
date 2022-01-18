@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             FreezeAll();
         }
@@ -33,14 +33,14 @@ public class GameManager : MonoBehaviour
 
     public void FreezeAll()
     {
-        if (isFreeze)
+        if (Time.timeScale == 0)
         {
-            isFreeze = false;
+            Time.timeScale = 1;
             return;
         }
         else
         {
-            isFreeze = true;
+            Time.timeScale = 0;
             return;
         }
     }

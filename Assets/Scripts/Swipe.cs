@@ -59,6 +59,10 @@ public class Swipe : MonoBehaviour
             x = 0f;
             y = 0f;
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            cubeController.Clock();
+        }
     }
 
     private void FixedUpdate()
@@ -69,5 +73,6 @@ public class Swipe : MonoBehaviour
             x += Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             y += Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
         }
+        
     }
 }

@@ -1715,6 +1715,7 @@ MonoBehaviour:
   cube: {fileID: 2049605635}
   stage: {fileID: 2078318641}
   plane: {fileID: 11911201}
+  isFreeze: 0
 --- !u!4 &1192263216
 Transform:
   m_ObjectHideFlags: 0
