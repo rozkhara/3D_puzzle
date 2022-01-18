@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public Stage stage;
     public Plane plane;
     public bool isFreeze;
+    public GameObject pausePanel;
+    private GameObject instPausePanel;
 
     void Awake()
     {
@@ -35,12 +37,14 @@ public class GameManager : MonoBehaviour
     {
         if (isFreeze)
         {
+            Destroy(instPausePanel);
             Time.timeScale = 1;
             isFreeze = false;
             return;
         }
         else
         {
+            instPausePanel = Instantiate(pausePanel, GameObject.Find("Canvas").transform);
             Time.timeScale = 0;
             isFreeze = true;
             return;

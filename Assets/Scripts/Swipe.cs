@@ -73,6 +73,6 @@ public class Swipe : MonoBehaviour
             x += Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
             y += Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
         }
-        
+
     }
 }
