@@ -33,14 +33,16 @@ public class GameManager : MonoBehaviour
 
     public void FreezeAll()
     {
-        if (Time.timeScale == 0)
+        if (isFreeze)
         {
             Time.timeScale = 1;
+            isFreeze = false;
             return;
         }
         else
         {
             Time.timeScale = 0;
+            isFreeze = true;
             return;
         }
     }
