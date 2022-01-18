@@ -20,7 +20,10 @@ public class Stage : MonoBehaviour
     public int stageNum = 0;
     void Start()
     {
+        spawnPoints = new Transform[27];
         StartCoroutine(StartNewStage());
+        //spawnPoints =  GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
+        System.Array.Copy(GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>(), 1, spawnPoints, 0, 27);
     }
 
     void Update()

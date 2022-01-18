@@ -17,8 +17,8 @@ public class Plane : MonoBehaviour
     bool accelerated = false;
     public bool isLoading = false;
     void Start()
-    { 
-       
+    {
+
     }
     private void FixedUpdate()
     {
@@ -26,7 +26,7 @@ public class Plane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (!accelerated && Input.GetKeyDown(KeyCode.X))
         {
             speed *= 3;
@@ -34,17 +34,18 @@ public class Plane : MonoBehaviour
             curTime /= 3;
             accelerated = true;
         }
-        if (accelerated && Input.GetKeyUp(KeyCode.X)){
+        if (accelerated && Input.GetKeyUp(KeyCode.X))
+        {
             speed /= 3;
             time *= 3;
             curTime *= 3;
             accelerated = false;
         }
-        if(!isLoading)
+        if (!isLoading)
         {
             if (isCollision)
             {
-                isLoading = true;   
+                isLoading = true;
                 Debug.Log("GAME OVER! by Collision");
             }
             curTime += Time.deltaTime;
@@ -82,7 +83,7 @@ public class Plane : MonoBehaviour
     {
         isCollision = true;
     }
-    
+
     private void LackTest()
     {
         RaycastHit hit;
@@ -93,11 +94,11 @@ public class Plane : MonoBehaviour
         {
             for (int j = 0; j < 3; j++)
             {
-                Vector3 curPos = new Vector3(0, 0, 4.5f) + new Vector3(1-i, 1-j, 0)*2;
-                isRay = Physics.Raycast(curPos, new Vector3(0,0,-1), out hit, maxDist);
+                Vector3 curPos = new Vector3(0, 0, 4.5f) + new Vector3(1 - i, 1 - j, 0) * 2;
+                isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, maxDist);
                 if (!isRay)
                 {
-                    Debug.Log(i+""+j);
+                    Debug.Log(i + "" + j);
                     isLack = true;
                     return;
                 }
