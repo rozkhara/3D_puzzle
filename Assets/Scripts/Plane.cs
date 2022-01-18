@@ -49,6 +49,7 @@ public class Plane : MonoBehaviour
                 isLoading = true;
                 gameOverPanel.SetActive(true);
                 gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
+                Time.timeScale = 0;
                 // Debug.Log("GAME OVER! by Collision");
             }
             curTime += Time.deltaTime;
@@ -59,6 +60,7 @@ public class Plane : MonoBehaviour
                 {
                     gameOverPanel.SetActive(true);
                     gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
+                    Time.timeScale = 0;
                     // Debug.Log("GAME OVER! by Lack");
                     isLoading = true;
                 }
