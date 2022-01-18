@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class Stage : MonoBehaviour
     Vector3[] positions = new Vector3[6] { new Vector3(0, 0, -5), new Vector3(0, 5, 0), new Vector3(0, 0, 5), new Vector3(0, -5, 0), new Vector3(5, 0, 0), new Vector3(-5, 0, 0) };
     Vector3[] directions = new Vector3[6] { new Vector3(0, 0, 2), new Vector3(0, -2, 0), new Vector3(0, 0, -2), new Vector3(0, 2, 0), new Vector3(-2, 0, 0), new Vector3(2, 0, 0) };
     public int stageNum = 0;
+
+    [SerializeField]
+    Text stageText;
+
     void Start()
     {
         spawnPoints = new Transform[27];
@@ -30,7 +35,7 @@ public class Stage : MonoBehaviour
     }
     public IEnumerator StartNewStage()
     {
-        Debug.Log("Stage" + ++stageNum + "!");
+        stageText.text = $"Stage {++stageNum}";
         DestroyCubes();
         cubePosList.Clear();
 
