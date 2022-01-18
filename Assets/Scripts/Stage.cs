@@ -10,8 +10,6 @@ public class Stage : MonoBehaviour
     [SerializeField]
     private GameObject cube;
     [SerializeField]
-    private GameObject[] group;
-    [SerializeField]
     private Transform[] spawnPoints;
     public Transform cubes;
     public bool[,] data = new bool[,] { { false, false, false }, { false, false, false }, { false, false, false } };
@@ -72,31 +70,10 @@ public class Stage : MonoBehaviour
 
             center = ranPos;
             cubePosList.Remove(ranPos);
-
-            // Spawn();
         }
 
         DeterminePlane();
         ConstructPlane();
-    }
-    void Spawn()
-    {
-        /*
-        var go = Instantiate(group[Random.Range(0, group.Length)]);
-        go.transform.parent = cubes;
-        */
-
-
-        //int ran = Random.Range(0, cubeList.Count);
-
-        /*
-        int ran = SampleGaussian(0, cubeList.Count);
-        var go = Instantiate(cube, spawnPoints[cubeList[ran]].transform.position, spawnPoints[cubeList[ran]].rotation);
-        go.transform.parent = cubes;
-        cubeList.RemoveAt(ran);
-        */
-
-
     }
 
     void DeterminePlane()
