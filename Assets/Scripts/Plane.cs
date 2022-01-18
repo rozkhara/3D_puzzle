@@ -17,9 +17,11 @@ public class Plane : MonoBehaviour
     bool isLack = false;
     bool accelerated = false;
     public bool isLoading = false;
+    GameManager GM;
+
     void Start()
     {
-
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     private void FixedUpdate()
     {
@@ -27,59 +29,62 @@ public class Plane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (!accelerated && Input.GetKeyDown(KeyCode.X))
+        if (!GM.isFreeze)
         {
-            speed *= 3;
-            time /= 3;
-            curTime /= 3;
-            accelerated = true;
-        }
-        if (accelerated && Input.GetKeyUp(KeyCode.X))
-        {
-            speed /= 3;
-            time *= 3;
-            curTime *= 3;
-            accelerated = false;
-        }
-        if (!isLoading)
-        {
-            if (isCollision)
+            if (!accelerated && Input.GetKeyDown(KeyCode.X))
             {
-                isLoading = true;
-                gameOverPanel.SetActive(true);
-                gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
-                // Debug.Log("GAME OVER! by Collision");
+                speed *= 3;
+                time /= 3;
+                curTime /= 3;
+                accelerated = true;
             }
-            curTime += Time.deltaTime;
-            if (curTime >= time)
+            if (accelerated && Input.GetKeyUp(KeyCode.X))
             {
-                LackTest();
-                if (isLack)
+                speed /= 3;
+                time *= 3;
+                curTime *= 3;
+                accelerated = false;
+            }
+            if (!isLoading)
+            {
+                if (isCollision)
                 {
-                    gameOverPanel.SetActive(true);
-                    gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
-                    // Debug.Log("GAME OVER! by Lack");
                     isLoading = true;
+                    gameOverPanel.SetActive(true);
+                    gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
+                    // Debug.Log("GAME OVER! by Collision");
+                }
+                curTime += Time.deltaTime;
+                if (curTime >= time)
+                {
+                    LackTest();
+                    if (isLack)
+                    {
+                        gameOverPanel.SetActive(true);
+                        gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
+                        // Debug.Log("GAME OVER! by Lack");
+                        isLoading = true;
+                    }
+                    else
+                    {
+                        if (accelerated)
+                        {
+                            accelerated = false;
+                            speed /= 3;
+                            time *= 3;
+                        }
+                        StartCoroutine(GameManager.instance.stage.StartNewStage());
+                    }
+
+
                 }
                 else
                 {
-                    if (accelerated)
-                    {
-                        accelerated = false;
-                        speed /= 3;
-                        time *= 3;
-                    }
-                    StartCoroutine(GameManager.instance.stage.StartNewStage());
+                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed;
                 }
-
-
-            }
-            else
-            {
-                transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed;
             }
         }
+        
     }
 
 

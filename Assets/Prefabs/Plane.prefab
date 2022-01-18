@@ -1029,6 +1029,7 @@ MonoBehaviour:
   - {fileID: 6596781912851405050}
   - {fileID: 6596781911977460176}
   collection: {fileID: 6596781912352553574}
+  gameOverPanel: {fileID: 0}
   isLoading: 0
 --- !u!54 &6596781912850331500
 Rigidbody:

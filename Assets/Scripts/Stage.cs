@@ -50,11 +50,11 @@ public class Stage : MonoBehaviour
         Vector3 center = spawnPoints[Random.Range(0, 27)].transform.position;
         var tmp = Instantiate(cube, center, Quaternion.identity);
         tmp.transform.parent = cubes;
-        
+
         // 이후 큐브 생성
         for (int i = 0; i < cnt - 1; i++)
         {
-            for(int j = 0; j < 6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 if ((center + directions[j]).x <= 2 && (center + directions[j]).x >= -2 &&
                     (center + directions[j]).y <= 2 && (center + directions[j]).y >= -2 &&

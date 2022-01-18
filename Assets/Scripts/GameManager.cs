@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public CubeController cube;
     public Stage stage;
     public Plane plane;
+    public bool isFreeze;
 
     void Awake()
     {
@@ -21,4 +22,28 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            FreezeAll();
+        }
+    }
+
+    public void FreezeAll()
+    {
+        if (isFreeze)
+        {
+            isFreeze = false;
+            return;
+        }
+        else
+        {
+            isFreeze = true;
+            return;
+        }
+    }
+
+    
 }
