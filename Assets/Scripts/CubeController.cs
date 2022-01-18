@@ -7,9 +7,20 @@ public class CubeController : MonoBehaviour
     [SerializeField]
     private float speed;
     private float timer;
-
+    private float coolTime;
+    private float curCoolTime = 0;
+    private void Start()
+    {
+        coolTime = 1.0f / speed + 0.05f;
+    }
+    private void Update()
+    {
+        curCoolTime = Mathf.Max(curCoolTime - Time.deltaTime, 0);
+    }
     public void Up()
     {
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(UpCoroutine());
     }
@@ -26,7 +37,9 @@ public class CubeController : MonoBehaviour
     }
 
     public void Down()
-    {
+    { 
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(DownCoroutine());
     }
@@ -44,6 +57,9 @@ public class CubeController : MonoBehaviour
 
     public void Left()
     {
+
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(LeftCoroutine());
     }
@@ -61,6 +77,8 @@ public class CubeController : MonoBehaviour
 
     public void Right()
     {
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(RightCoroutine());
     }
@@ -80,6 +98,8 @@ public class CubeController : MonoBehaviour
 
     public void Clock()
     {
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(ClockCoroutine());
     }
@@ -97,6 +117,8 @@ public class CubeController : MonoBehaviour
 
     public void CounterClock()
     {
+        if (curCoolTime != 0) return;
+        curCoolTime = coolTime;
         timer = 0f;
         StartCoroutine(CounterClockCoroutine());
     }

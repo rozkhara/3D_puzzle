@@ -2381,7 +2381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1915769417
 Transform:
   m_ObjectHideFlags: 0
@@ -2637,34 +2637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cube: {fileID: 4724147543575611782, guid: 0c192394827a3e245a54ae47b209051f, type: 3}
   group: []
-  spawnPoint:
-  - {fileID: 1093714478}
-  - {fileID: 2019644610}
-  - {fileID: 317058760}
-  - {fileID: 1806916974}
-  - {fileID: 1223863925}
-  - {fileID: 1276618431}
-  - {fileID: 1369408276}
-  - {fileID: 1154769253}
-  - {fileID: 1935374019}
-  - {fileID: 1837175139}
-  - {fileID: 1568424143}
-  - {fileID: 1816994759}
-  - {fileID: 2097242446}
-  - {fileID: 287946005}
-  - {fileID: 486382260}
-  - {fileID: 383288388}
-  - {fileID: 708998181}
-  - {fileID: 418570666}
-  - {fileID: 1088401053}
-  - {fileID: 1725942909}
-  - {fileID: 205665608}
-  - {fileID: 136282561}
-  - {fileID: 2134086936}
-  - {fileID: 1348145649}
-  - {fileID: 899111216}
-  - {fileID: 164879131}
-  - {fileID: 1625490471}
+  spawnPoints: []
   cubes: {fileID: 2049605634}
   stageNum: 0
 --- !u!4 &2078318642
