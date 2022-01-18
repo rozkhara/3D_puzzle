@@ -16,7 +16,7 @@ public class Swipe : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        cubeController = GameObject.Find("GameManager").GetComponent<GameManager>().cube;
+        cubeController = GameManager.instance.cube;
     }
 
     //private void OnMouseDrag()
@@ -55,7 +55,6 @@ public class Swipe : MonoBehaviour
                         cubeController.Down();
                     }
                 }
-
             }
             x = 0f;
             y = 0f;
@@ -67,8 +66,8 @@ public class Swipe : MonoBehaviour
         //if (dragging)
         if (Input.GetMouseButton(0))
         {
-            x = Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
-            y = Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
+            x += Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
+            y += Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
         }
     }
 }

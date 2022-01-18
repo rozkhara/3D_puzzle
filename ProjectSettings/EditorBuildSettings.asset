@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 8cf4e5b00ae5cb9458205c6724a1c00e
   - enabled: 1
-    path: Assets/Scenes/DY.unity
-    guid: a36ee60dd7ea1634aa62aedc86b1fb43
+    path: Assets/Scenes/DYScene.unity
+    guid: dca86a220116524409175278a6a56e31
   m_configObjects: {}
