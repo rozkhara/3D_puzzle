@@ -31,8 +31,13 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             //dragging = false;
-            if (x != 0f || y != 0f)
+            if (Mathf.Abs(x) < 0.07f && Mathf.Abs(y) < 0.07f)
             {
+                cubeController.CounterClock();
+            }
+            else if (x != 0f || y != 0f)
+            {
+                
                 if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
                     if (x > 0)
@@ -59,7 +64,7 @@ public class Swipe : MonoBehaviour
             x = 0f;
             y = 0f;
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonUp(1))
         {
             cubeController.Clock();
         }
