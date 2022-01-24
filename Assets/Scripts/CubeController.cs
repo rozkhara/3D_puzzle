@@ -37,7 +37,7 @@ public class CubeController : MonoBehaviour
     }
 
     public void Down()
-    { 
+    {
         if (curCoolTime != 0) return;
         curCoolTime = coolTime;
         timer = 0f;
