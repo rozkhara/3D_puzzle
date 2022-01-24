@@ -12,7 +12,6 @@ public class Plane : MonoBehaviour
     private float curTime;
     public GameObject[] cubes = new GameObject[9];
     public GameObject collection;
-    public GameObject gameOverPanel;
     bool isCollision = false;
     bool isLack = false;
     bool accelerated = false;
@@ -50,9 +49,10 @@ public class Plane : MonoBehaviour
                 if (isCollision)
                 {
                     isLoading = true;
-                    gameOverPanel.SetActive(true);
-                    gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
-                    Time.timeScale = 0;
+                    GameManager.instance.gameOverPanel.SetActive(true);
+                    GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
+                    Time.timeScale = 0f;
+                    isCollision = false;
                     // Debug.Log("GAME OVER! by Collision");
                 }
                 curTime += Time.deltaTime;
@@ -61,10 +61,11 @@ public class Plane : MonoBehaviour
                     LackTest();
                     if (isLack)
                     {
-                        gameOverPanel.SetActive(true);
-                        gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
+                        GameManager.instance.gameOverPanel.SetActive(true);
+                        GameManager.instance.gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
                         // Debug.Log("GAME OVER! by Lack");
-                        Time.timeScale = 0;
+                        Time.timeScale = 0f;
+                        isLack = false;
                         isLoading = true;
                     }
                     else

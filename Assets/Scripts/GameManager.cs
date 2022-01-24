@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Stage stage;
     public Plane plane;
     public bool isFreeze;
+    public GameObject gameOverPanel;
     public GameObject pausePanel;
     private GameObject instPausePanel;
 
