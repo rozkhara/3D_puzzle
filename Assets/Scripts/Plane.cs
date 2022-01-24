@@ -16,6 +16,7 @@ public class Plane : MonoBehaviour
     bool isCollision = false;
     bool isLack = false;
     bool accelerated = false;
+    bool tripleAccelerated = false;
     public bool isLoading = false;
     GameManager GM;
 
@@ -31,19 +32,33 @@ public class Plane : MonoBehaviour
     {
         if (!GM.isFreeze)
         {
-            if (!accelerated && Input.GetKeyDown(KeyCode.X))
+            if ( !tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
             {
                 speed *= 3;
                 time /= 3;
                 curTime /= 3;
                 accelerated = true;
             }
-            if (accelerated && Input.GetKeyUp(KeyCode.X))
+            if ( accelerated && Input.GetKeyUp(KeyCode.X))
             {
                 speed /= 3;
                 time *= 3;
                 curTime *= 3;
                 accelerated = false;
+            }
+            if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.Z))
+            {
+                speed *= 9;
+                time /= 9;
+                curTime /= 9;
+                tripleAccelerated = true;
+            }
+            if(tripleAccelerated && Input.GetKeyUp(KeyCode.Z))
+            {
+                speed /= 9;
+                time *= 9;
+                curTime *= 9;
+                tripleAccelerated = false;
             }
             if (!isLoading)
             {
@@ -74,6 +89,12 @@ public class Plane : MonoBehaviour
                             accelerated = false;
                             speed /= 3;
                             time *= 3;
+                        }
+                        else if (tripleAccelerated)
+                        {
+                            tripleAccelerated = false;
+                            speed /= 9;
+                            time *= 9;
                         }
                         StartCoroutine(GameManager.instance.stage.StartNewStage());
                     }
