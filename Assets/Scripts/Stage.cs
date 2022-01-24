@@ -14,8 +14,16 @@ public class Stage : MonoBehaviour
     private Transform[] spawnPoints;
     public Transform cubes;
     public bool[,] data = new bool[,] { { false, false, false }, { false, false, false }, { false, false, false } };
-    Vector3[] positions = new Vector3[6] { new Vector3(0, 0, -5), new Vector3(0, 5, 0), new Vector3(0, 0, 5), new Vector3(0, -5, 0), new Vector3(5, 0, 0), new Vector3(-5, 0, 0) };
-    Vector3[] directions = new Vector3[6] { new Vector3(0, 0, 2), new Vector3(0, -2, 0), new Vector3(0, 0, -2), new Vector3(0, 2, 0), new Vector3(-2, 0, 0), new Vector3(2, 0, 0) };
+    Vector3[] positions = new Vector3[6] {
+        new Vector3(0, 0, -5), new Vector3(0, 5, 0),
+        new Vector3(0, 0, 5), new Vector3(0, -5, 0),
+        new Vector3(5, 0, 0), new Vector3(-5, 0, 0)
+    };
+    Vector3[] directions = new Vector3[6] {
+        new Vector3(0, 0, 2), new Vector3(0, -2, 0),
+        new Vector3(0, 0, -2), new Vector3(0, 2, 0),
+        new Vector3(-2, 0, 0), new Vector3(2, 0, 0)
+    };
     public int stageNum = 0;
 
     [SerializeField]
@@ -80,6 +88,10 @@ public class Stage : MonoBehaviour
 
         DeterminePlane();
         ConstructPlane();
+
+        GameManager.instance.gameOverPanel.SetActive(false);
+        GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(false);
+        GameManager.instance.gameOverPanel.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     void DeterminePlane()

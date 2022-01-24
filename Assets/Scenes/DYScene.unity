@@ -1610,6 +1610,8 @@ MonoBehaviour:
   stage: {fileID: 2078318641}
   plane: {fileID: 11911201}
   isFreeze: 0
+  gameOverPanel: {fileID: 1674394764}
+  pausePanel: {fileID: 7160840153540397684, guid: c54752f951caeda458d24b3aaa8b265e, type: 3}
 --- !u!4 &1192263216
 Transform:
   m_ObjectHideFlags: 0
