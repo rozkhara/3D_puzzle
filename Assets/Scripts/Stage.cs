@@ -49,7 +49,8 @@ public class Stage : MonoBehaviour
         {
             cubeList.Add(i);
         }
-        int cnt = Random.Range(1, 28);
+        //int cnt = Random.Range(1, 28);
+        int cnt = SampleGaussian(1, 28);
 
         // 첫 큐브 생성
         Vector3 center = spawnPoints[Random.Range(0, 27)].transform.position;
