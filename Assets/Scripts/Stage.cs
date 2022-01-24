@@ -105,7 +105,7 @@ public class Stage : MonoBehaviour
                 }
             }
         }
-        Debug.Log(index + "\t" + data[0, 0] + " " + data[0, 1] + " " + data[0, 2] + "\t" + data[1, 0] + " " + data[1, 1] + " " + data[1, 2] + "\t" + data[2, 0] + " " + data[2, 1] + " " + data[2, 2] + " ");
+        //Debug.Log(index + "\t" + data[0, 0] + " " + data[0, 1] + " " + data[0, 2] + "\t" + data[1, 0] + " " + data[1, 1] + " " + data[1, 2] + "\t" + data[2, 0] + " " + data[2, 1] + " " + data[2, 2] + " ");
     }
     private Vector3 DetermineLoc(int i, int j, int index)
     {
@@ -137,7 +137,7 @@ public class Stage : MonoBehaviour
         int rot = Random.Range(0, 4);
         // rot = 0;
         GameManager.instance.plane.collection.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f * rot));
-        Debug.Log(rot);
+        //Debug.Log(rot);
         for (int i = 0; i < 9; i++)
         {
             GameManager.instance.plane.cubes[i].SetActive(!GameManager.instance.stage.data[i / 3, i % 3]);

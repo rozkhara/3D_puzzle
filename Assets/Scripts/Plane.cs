@@ -134,7 +134,7 @@ public class Plane : MonoBehaviour
                 isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, maxDist);
                 if (!isRay)
                 {
-                    Debug.Log(i + "" + j);
+                    //Debug.Log(i + "" + j);
                     isLack = true;
                     return;
                 }

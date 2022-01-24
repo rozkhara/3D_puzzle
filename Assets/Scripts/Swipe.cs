@@ -31,7 +31,7 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             //dragging = false;
-            if (Mathf.Abs(x) < 0.07f && Mathf.Abs(y) < 0.07f)
+            if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
             {
                 cubeController.CounterClock();
             }
