@@ -18,12 +18,13 @@ public class Plane : MonoBehaviour
     bool tripleAccelerated = false;
     public bool isLoading = false;
     //private float multiplier = 1f;
-    private float multiplier = 1 / Mathf.Pow(2, 0.01f);
+    public float Multiplier { get; set; }
     private bool multiplyLock = false;
     GameManager GM;
 
     void Start()
     {
+        Multiplier = 1 / Mathf.Pow(2, 0.01f);
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     private void FixedUpdate()
@@ -107,7 +108,7 @@ public class Plane : MonoBehaviour
                 }
                 else
                 {
-                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * multiplier;
+                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
                 }
             }
         }
@@ -146,13 +147,13 @@ public class Plane : MonoBehaviour
     {
         if (!multiplyLock)
         {
-            multiplier = Mathf.Min(multiplier * Mathf.Pow(2, 0.01f), 2.0f);
-            if (multiplier == 2.0f)
+            Multiplier = Mathf.Min(Multiplier * Mathf.Pow(2, 0.01f), 2.0f);
+            if (Multiplier == 2.0f)
             {
                 multiplyLock = true;
             }
         }
-        time = (firstDist + 2f) / speed / multiplier;
+        time = (firstDist + 2f) / speed / Multiplier;
         curTime = 0.0f;
         transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
 
