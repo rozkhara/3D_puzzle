@@ -18,6 +18,9 @@ public class Plane : MonoBehaviour
     bool accelerated = false;
     bool tripleAccelerated = false;
     public bool isLoading = false;
+    //private float multiplier = 1f;
+    private float multiplier = 1 / Mathf.Pow(2, 0.01f);
+    private bool multiplyLock = false;
     GameManager GM;
 
     void Start()
@@ -103,7 +106,7 @@ public class Plane : MonoBehaviour
                 }
                 else
                 {
-                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed;
+                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * multiplier;
                 }
             }
         }
@@ -140,9 +143,18 @@ public class Plane : MonoBehaviour
     }
     public void BasicSetting() // 나중에 인자 추가 필요
     {
-        time = (firstDist + 2f) / speed;
+        if (!multiplyLock)
+        {
+            multiplier = Mathf.Min(multiplier * Mathf.Pow(2, 0.01f), 2.0f);
+            if (multiplier == 2.0f)
+            {
+                multiplyLock = true;
+            }
+        }
+        time = (firstDist + 2f) / speed / multiplier;
         curTime = 0.0f;
         transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
+
     }
 }
 
