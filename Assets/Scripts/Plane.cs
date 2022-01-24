@@ -32,14 +32,14 @@ public class Plane : MonoBehaviour
     {
         if (!GM.isFreeze)
         {
-            if ( !tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
+            if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
             {
                 speed *= 3;
                 time /= 3;
                 curTime /= 3;
                 accelerated = true;
             }
-            if ( accelerated && Input.GetKeyUp(KeyCode.X))
+            if (accelerated && Input.GetKeyUp(KeyCode.X))
             {
                 speed /= 3;
                 time *= 3;
@@ -53,7 +53,7 @@ public class Plane : MonoBehaviour
                 curTime /= 9;
                 tripleAccelerated = true;
             }
-            if(tripleAccelerated && Input.GetKeyUp(KeyCode.Z))
+            if (tripleAccelerated && Input.GetKeyUp(KeyCode.Z))
             {
                 speed /= 9;
                 time *= 9;

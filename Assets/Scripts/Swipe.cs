@@ -37,7 +37,7 @@ public class Swipe : MonoBehaviour
             }
             else if (x != 0f || y != 0f)
             {
-                
+
                 if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
                     if (x > 0)
