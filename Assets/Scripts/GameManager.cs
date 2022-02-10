@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject pausePanel;
     private GameObject instPausePanel;
+    public int highscore;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        highscore = PlayerPrefs.GetInt("highscore");
     }
 
     private void Update()
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             FreezeAll();
         }
+        Debug.Log(highscore);
     }
 
     public void FreezeAll()

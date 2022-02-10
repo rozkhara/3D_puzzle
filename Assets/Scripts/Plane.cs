@@ -71,6 +71,12 @@ public class Plane : MonoBehaviour
                     GameManager.instance.gameOverPanel.SetActive(true);
                     GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
                     Time.timeScale = 0f;
+                    if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
+                    {
+                        GameManager.instance.highscore = GameManager.instance.stage.stageNum;
+                        PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
+                        PlayerPrefs.Save();
+                    }
                     isCollision = false;
                     // Debug.Log("GAME OVER! by Collision");
                 }
@@ -84,6 +90,12 @@ public class Plane : MonoBehaviour
                         GameManager.instance.gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
                         // Debug.Log("GAME OVER! by Lack");
                         Time.timeScale = 0f;
+                        if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
+                        {
+                            GameManager.instance.highscore = GameManager.instance.stage.stageNum;
+                            PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
+                            PlayerPrefs.Save();
+                        }
                         isLack = false;
                         isLoading = true;
                     }
