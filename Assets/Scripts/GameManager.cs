@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
     public CubeController cube;
     public Stage stage;
     public Plane plane;
-    public bool isFreeze;
+    public Swipe swipe;
+
+    public bool isFrozen;
+    public bool isGameOver;
+
     public GameObject gameOverPanel;
     public GameObject pausePanel;
     private GameObject instPausePanel;
@@ -24,6 +28,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        isFrozen = false;
+        isGameOver = false;
     }
 
     private void Update()
@@ -36,18 +43,18 @@ public class GameManager : MonoBehaviour
 
     public void FreezeAll()
     {
-        if (isFreeze)
+        if (isFrozen)
         {
             Destroy(instPausePanel);
-            Time.timeScale = 1;
-            isFreeze = false;
+            Time.timeScale = 1f;
+            isFrozen = false;
             return;
         }
         else
         {
             instPausePanel = Instantiate(pausePanel, GameObject.Find("Canvas").transform);
-            Time.timeScale = 0;
-            isFreeze = true;
+            Time.timeScale = 0f;
+            isFrozen = true;
             return;
         }
     }

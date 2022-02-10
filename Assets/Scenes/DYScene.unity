@@ -1609,7 +1609,7 @@ MonoBehaviour:
   cube: {fileID: 2049605635}
   stage: {fileID: 2078318641}
   plane: {fileID: 11911201}
-  isFreeze: 0
+  swipe: {fileID: 1192263217}
   gameOverPanel: {fileID: 1674394764}
   pausePanel: {fileID: 7160840153540397684, guid: c54752f951caeda458d24b3aaa8b265e, type: 3}
 --- !u!4 &1192263216
@@ -1639,6 +1639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+  isButtonPressed: 0
 --- !u!1 &1223863924
 GameObject:
   m_ObjectHideFlags: 0
