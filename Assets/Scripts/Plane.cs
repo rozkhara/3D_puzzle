@@ -33,43 +33,62 @@ public class Plane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GM.isFreeze)
+        if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
         {
-            if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
+            speed *= 3;
+            time /= 3;
+            curTime /= 3;
+            accelerated = true;
+        }
+        if (accelerated && Input.GetKeyUp(KeyCode.X))
+        {
+            speed /= 3;
+            time *= 3;
+            curTime *= 3;
+            accelerated = false;
+        }
+        if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.Z))
+        {
+            speed *= 9;
+            time /= 9;
+            curTime /= 9;
+            tripleAccelerated = true;
+        }
+        if (tripleAccelerated && Input.GetKeyUp(KeyCode.Z))
+        {
+            speed /= 9;
+            time *= 9;
+            curTime *= 9;
+            tripleAccelerated = false;
+        }
+        if (!isLoading)
+        {
+            if (isCollision)
             {
-                speed *= 3;
-                time /= 3;
-                curTime /= 3;
-                accelerated = true;
-            }
-            if (accelerated && Input.GetKeyUp(KeyCode.X))
-            {
-                speed /= 3;
-                time *= 3;
-                curTime *= 3;
-                accelerated = false;
-            }
-            if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.Z))
-            {
-                speed *= 9;
-                time /= 9;
-                curTime /= 9;
-                tripleAccelerated = true;
-            }
-            if (tripleAccelerated && Input.GetKeyUp(KeyCode.Z))
-            {
-                speed /= 9;
-                time *= 9;
-                curTime *= 9;
-                tripleAccelerated = false;
-            }
-            if (!isLoading)
-            {
-                if (isCollision)
+                isLoading = true;
+                GameManager.instance.gameOverPanel.SetActive(true);
+                GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
+                GameManager.instance.isGameOver = true;
+                Time.timeScale = 0f;
+                if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
                 {
-                    isLoading = true;
+                    GameManager.instance.highscore = GameManager.instance.stage.stageNum;
+                    PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
+                    PlayerPrefs.Save();
+                }
+                isCollision = false;
+                // Debug.Log("GAME OVER! by Collision");
+            }
+            curTime += Time.deltaTime;
+            if (curTime >= time)
+            {
+                LackTest();
+                if (isLack)
+                {
                     GameManager.instance.gameOverPanel.SetActive(true);
-                    GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
+                    GameManager.instance.gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
+                    GameManager.instance.isGameOver = true;
+                    // Debug.Log("GAME OVER! by Lack");
                     Time.timeScale = 0f;
                     if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
                     {
@@ -77,54 +96,33 @@ public class Plane : MonoBehaviour
                         PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
                         PlayerPrefs.Save();
                     }
-                    isCollision = false;
-                    // Debug.Log("GAME OVER! by Collision");
-                }
-                curTime += Time.deltaTime;
-                if (curTime >= time)
-                {
-                    LackTest();
-                    if (isLack)
-                    {
-                        GameManager.instance.gameOverPanel.SetActive(true);
-                        GameManager.instance.gameOverPanel.transform.GetChild(2).gameObject.SetActive(true);
-                        // Debug.Log("GAME OVER! by Lack");
-                        Time.timeScale = 0f;
-                        if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
-                        {
-                            GameManager.instance.highscore = GameManager.instance.stage.stageNum;
-                            PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
-                            PlayerPrefs.Save();
-                        }
-                        isLack = false;
-                        isLoading = true;
-                    }
-                    else
-                    {
-                        if (accelerated)
-                        {
-                            accelerated = false;
-                            speed /= 3;
-                            time *= 3;
-                        }
-                        else if (tripleAccelerated)
-                        {
-                            tripleAccelerated = false;
-                            speed /= 9;
-                            time *= 9;
-                        }
-                        StartCoroutine(GameManager.instance.stage.StartNewStage());
-                    }
-
-
+                    isLack = false;
+                    isLoading = true;
                 }
                 else
                 {
-                    transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
+                    if (accelerated)
+                    {
+                        accelerated = false;
+                        speed /= 3;
+                        time *= 3;
+                    }
+                    else if (tripleAccelerated)
+                    {
+                        tripleAccelerated = false;
+                        speed /= 9;
+                        time *= 9;
+                    }
+                    StartCoroutine(GameManager.instance.stage.StartNewStage());
                 }
+
+
+            }
+            else
+            {
+                transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
             }
         }
-
     }
 
 

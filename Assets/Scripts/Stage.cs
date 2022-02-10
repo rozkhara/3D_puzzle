@@ -53,6 +53,9 @@ public class Stage : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         //Debug.Log("CHILDAFTER:" + GameManager.instance.cube.transform.childCount);
         GameManager.instance.plane.isLoading = false;
+
+        cubes.transform.rotation = Quaternion.identity;
+
         for (int i = 0; i < 27; i++)
         {
             cubeList.Add(i);

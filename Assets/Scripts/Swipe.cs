@@ -12,6 +12,8 @@ public class Swipe : MonoBehaviour
     Rigidbody rb;
     float x, y;
 
+    private bool isButtonPressed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class Swipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             //dragging = false;
             if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
@@ -64,7 +66,7 @@ public class Swipe : MonoBehaviour
             x = 0f;
             y = 0f;
         }
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             cubeController.Clock();
         }
