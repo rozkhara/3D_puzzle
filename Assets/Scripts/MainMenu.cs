@@ -17,7 +17,15 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene(sceneToLoad);
+            if (GameManager.instance.highscore == -1)
+            {
+                SceneManager.LoadScene("TutorialScene");
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneToLoad);
+                //난이도 선택
+            }
         }
     }
 }
