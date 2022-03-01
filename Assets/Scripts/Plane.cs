@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class Plane : MonoBehaviour
@@ -21,10 +18,12 @@ public class Plane : MonoBehaviour
     public float Multiplier { get; set; }
     private bool multiplyLock = false;
     GameManager GM;
-
-    void Start()
+    private void Awake()
     {
         Multiplier = 1 / Mathf.Pow(2, 0.01f);
+    }
+    void Start()
+    {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     private void FixedUpdate()
@@ -144,7 +143,6 @@ public class Plane : MonoBehaviour
                 isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, maxDist);
                 if (!isRay)
                 {
-                    //Debug.Log(i + "" + j);
                     isLack = true;
                     return;
                 }
