@@ -12,7 +12,7 @@ public class Stage : MonoBehaviour
     [SerializeField]
     private GameObject cube;
     public Transform cubes;
-    public bool[,] data = new bool[,] { { false, false, false }, { false, false, false }, { false, false, false } };
+    public bool[,] data;
     Vector3[] positions = new Vector3[6] {
         new Vector3(0, 0, -5), new Vector3(0, 5, 0),
         new Vector3(0, 0, 5), new Vector3(0, -5, 0),
@@ -41,11 +41,10 @@ public class Stage : MonoBehaviour
             Gizmos.DrawWireCube(cubePos, new Vector3(2f, 2f, 2f));
         }
     }
-
     void Start()
     {
         stageIdx = GameManager.instance.stageIdx;
-
+        data = new bool[stageIdx, stageIdx];
         cubeCnt = (int)Mathf.Pow(stageIdx, 3);
         SetPosList(spawnPoints);
         //spawnPoints =  GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
@@ -130,24 +129,24 @@ public class Stage : MonoBehaviour
 
     void DeterminePlane()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < stageIdx * stageIdx; i++)
         {
-            data[i / 3, i % 3] = false;
+            data[i / stageIdx, i % stageIdx] = false;
         }
         RaycastHit hit;
         int index = Random.Range(0, 6);
         //index = 0;
         bool isRay;
-        for (int i = 0; i < 3; i++)
+        for (int i = -stageIdx + 1; i <= stageIdx - 1; i+=2)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = -stageIdx + 1; j <= stageIdx - 1; j+=2)
             {
                 Vector3 curPos = positions[index] + DetermineLoc(j, i, index);
                 isRay = Physics.Raycast(curPos, directions[index], out hit, 8.0f);//, ~(1<<6));
                 if (isRay)
                 {
                     //Debug.Log(hit.distance + "\t" + hit.collider.transform.position);
-                    data[i, j] = true;
+                    data[(i+stageIdx-1)/2, (j+stageIdx-1)/2] = true;
                 }
             }
         }
@@ -158,17 +157,17 @@ public class Stage : MonoBehaviour
         switch (index)
         {
             case 0:
-                return new Vector3(i - 1, 1 - j, 0) * 2;
+                return new Vector3(i, - j, 0);
             case 1:
-                return new Vector3(i - 1, 0, 1 - j) * 2;
+                return new Vector3(i, 0, - j);
             case 2:
-                return new Vector3(1 - i, 1 - j, 0) * 2;
+                return new Vector3(- i, - j, 0);
             case 3:
-                return new Vector3(1 - i, 0, 1 - j) * 2;
+                return new Vector3(- i, 0, - j);
             case 4:
-                return new Vector3(0, 1 - j, i - 1) * 2;
+                return new Vector3(0, - j, i);
             case 5:
-                return new Vector3(0, 1 - j, 1 - i) * 2;
+                return new Vector3(0, - j, - i);
             default:
                 Debug.Log("indexError");
                 return new Vector3(-100, -100, -100);
@@ -178,15 +177,19 @@ public class Stage : MonoBehaviour
 
     private void ConstructPlane()
     {
-        Vector3[] rayLoc = new Vector3[6];
-        Vector3[] rayDir = new Vector3[6];
         int rot = Random.Range(0, 4);
         // rot = 0;
-        GameManager.instance.plane.collection.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f * rot));
+        GameManager.instance.plane.trigger.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f * rot));
         //Debug.Log(rot);
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < stageIdx * stageIdx; i++)
         {
-            GameManager.instance.plane.cubes[i].SetActive(!GameManager.instance.stage.data[i / 3, i % 3]);
+            if (!GameManager.instance.stage.data[i / stageIdx, i % stageIdx])
+            {
+                GameObject go = Instantiate(GameManager.instance.plane.triggerPrefab);
+                go.transform.parent = GameManager.instance.plane.trigger.transform;
+                go.transform.position = new Vector3(-stageIdx + 1 + i / stageIdx * 2, -stageIdx + 1 + i % stageIdx * 2, 0);
+                go.transform.localPosition = go.transform.localPosition - new Vector3(0, 0, go.transform.localPosition.z);
+            }
         }
 
     }
@@ -195,6 +198,10 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < GameManager.instance.cube.transform.childCount; i++)
         {
             Destroy(GameManager.instance.cube.transform.GetChild(i).gameObject);
+        }
+        for(int i = 0; i < GameManager.instance.plane.trigger.transform.childCount; i++)
+        {
+            Destroy(GameManager.instance.plane.trigger.transform.GetChild(i).gameObject);
         }
         cubeList.Clear();
     }
