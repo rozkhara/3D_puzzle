@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class Stage : MonoBehaviour
 {
     List<int> cubeList = new List<int>();
-    List<Vector3> cubePosList = new List<Vector3>();
+    public List<Vector3> cubePosList = new List<Vector3>();
+    public List<Vector3> spawnPoints = new List<Vector3>();
 
     [SerializeField]
     private GameObject cube;
-    [SerializeField]
-    private Transform[] spawnPoints;
     public Transform cubes;
     public bool[,] data = new bool[,] { { false, false, false }, { false, false, false }, { false, false, false } };
     Vector3[] positions = new Vector3[6] {
@@ -26,21 +25,53 @@ public class Stage : MonoBehaviour
     };
     public int stageNum = 0;
 
+    private int cubeCnt;
+
+    private int stageIdx;
+
     [SerializeField]
     Text stageText;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        foreach (var cubePos in cubePosList)
+        {
+            Gizmos.DrawWireCube(cubePos, new Vector3(2f, 2f, 2f));
+        }
+    }
+
     void Start()
     {
-        spawnPoints = new Transform[27];
-        StartCoroutine(StartNewStage());
+        stageIdx = GameManager.instance.stageIdx;
+
+        cubeCnt = (int)Mathf.Pow(stageIdx, 3);
+        SetPosList(spawnPoints);
         //spawnPoints =  GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
-        System.Array.Copy(GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>(), 1, spawnPoints, 0, 27);
+        // System.Array.Copy(GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>(), 1, spawnPoints, 0, 27);
+
+        StartCoroutine(StartNewStage());
     }
 
     void Update()
     {
-
     }
+
+    private void SetPosList(List<Vector3> spawnPoints)
+    {
+        for (int i = 0; i < stageIdx; i++)
+        {
+            for (int j = 0; j < stageIdx; j++)
+            {
+                for (int k = 0; k < stageIdx; k++)
+                {
+                    spawnPoints.Add(new Vector3(-stageIdx + 1 + i * 2, -stageIdx + 1 + j * 2, -stageIdx + 1 + k * 2));
+                }
+            }
+        }
+    }
+
     public IEnumerator StartNewStage()
     {
         stageText.text = $"Stage {++stageNum}";
@@ -56,15 +87,15 @@ public class Stage : MonoBehaviour
 
         cubes.transform.rotation = Quaternion.identity;
 
-        for (int i = 0; i < 27; i++)
+        for (int i = 0; i < cubeCnt; i++)
         {
             cubeList.Add(i);
         }
-        //int cnt = Random.Range(1, 28);
-        int cnt = SampleGaussian(1, 28);
+        //int cnt = Random.Range(1, cubeCnt);
+        int cnt = SampleGaussian(1, cubeCnt);
 
         // 첫 큐브 생성
-        Vector3 center = spawnPoints[Random.Range(0, 27)].transform.position;
+        Vector3 center = spawnPoints[Random.Range(0, cubeCnt - 1)];
         var tmp = Instantiate(cube, center, Quaternion.identity);
         tmp.transform.parent = cubes;
 
@@ -73,9 +104,9 @@ public class Stage : MonoBehaviour
         {
             for (int j = 0; j < 6; j++)
             {
-                if ((center + directions[j]).x <= 2 && (center + directions[j]).x >= -2 &&
-                    (center + directions[j]).y <= 2 && (center + directions[j]).y >= -2 &&
-                    (center + directions[j]).z <= 2 && (center + directions[j]).z >= -2)
+                if ((center + directions[j]).x <= stageIdx - 1 && (center + directions[j]).x >= -stageIdx + 1 &&
+                    (center + directions[j]).y <= stageIdx - 1 && (center + directions[j]).y >= -stageIdx + 1 &&
+                    (center + directions[j]).z <= stageIdx - 1 && (center + directions[j]).z >= -stageIdx + 1)
                 {
                     cubePosList.Add(center + directions[j]);
                 }

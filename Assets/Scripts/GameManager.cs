@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     private GameObject instPausePanel;
     public int highscore;
+    public int stageIdx;
 
     void Awake()
     {
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         {
             FreezeAll();
         }
-        Debug.Log(highscore);
+        // Debug.Log(highscore);
     }
 
     public void FreezeAll()

@@ -30,7 +30,7 @@ public class Plane : MonoBehaviour
     private void FixedUpdate()
     {
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (!tripleAccelerated && !accelerated && Input.GetKeyDown(KeyCode.X))
@@ -115,8 +115,6 @@ public class Plane : MonoBehaviour
                     }
                     StartCoroutine(GameManager.instance.stage.StartNewStage());
                 }
-
-
             }
             else
             {
