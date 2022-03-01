@@ -152,7 +152,7 @@ public class Plane : MonoBehaviour
                 multiplyLock = true;
             }
         }
-        time = (firstDist + 2f) / speed / Multiplier;
+        time = (firstDist + (GM.stageIdx-1)) / speed / Multiplier;
         curTime = 0.0f;
         transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
         trigger.transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);

@@ -14,9 +14,9 @@ public class Stage : MonoBehaviour
     public Transform cubes;
     public bool[,] data;
     Vector3[] positions = new Vector3[6] {
-        new Vector3(0, 0, -5), new Vector3(0, 5, 0),
-        new Vector3(0, 0, 5), new Vector3(0, -5, 0),
-        new Vector3(5, 0, 0), new Vector3(-5, 0, 0)
+        new Vector3(0, 0, -1000), new Vector3(0, 1000, 0),
+        new Vector3(0, 0, 1000), new Vector3(0, -1000, 0),
+        new Vector3(1000, 0, 0), new Vector3(-1000, 0, 0)
     };
     Vector3[] directions = new Vector3[6] {
         new Vector3(0, 0, 2), new Vector3(0, -2, 0),
@@ -135,14 +135,14 @@ public class Stage : MonoBehaviour
         }
         RaycastHit hit;
         int index = Random.Range(0, 6);
-        //index = 0;
+        //int index = 0;
         bool isRay;
         for (int i = -stageIdx + 1; i <= stageIdx - 1; i+=2)
         {
             for (int j = -stageIdx + 1; j <= stageIdx - 1; j+=2)
             {
                 Vector3 curPos = positions[index] + DetermineLoc(j, i, index);
-                isRay = Physics.Raycast(curPos, directions[index], out hit, 8.0f);//, ~(1<<6));
+                isRay = Physics.Raycast(curPos, directions[index], out hit, Mathf.Infinity, ~(1<<6));//, ~(1<<6));
                 if (isRay)
                 {
                     //Debug.Log(hit.distance + "\t" + hit.collider.transform.position);
@@ -178,7 +178,7 @@ public class Stage : MonoBehaviour
     private void ConstructPlane()
     {
         int rot = Random.Range(0, 4);
-        // rot = 0;
+        //int rot = 0;
         GameManager.instance.plane.trigger.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f * rot));
         //Debug.Log(rot);
         for (int i = 0; i < stageIdx * stageIdx; i++)
@@ -187,7 +187,7 @@ public class Stage : MonoBehaviour
             {
                 GameObject go = Instantiate(GameManager.instance.plane.triggerPrefab);
                 go.transform.parent = GameManager.instance.plane.trigger.transform;
-                go.transform.position = new Vector3(-stageIdx + 1 + i / stageIdx * 2, -stageIdx + 1 + i % stageIdx * 2, 0);
+                go.transform.position = new Vector3(-stageIdx + 1 + i % stageIdx * 2, stageIdx - 1 - i / stageIdx * 2, 0);
                 go.transform.localPosition = go.transform.localPosition - new Vector3(0, 0, go.transform.localPosition.z);
             }
         }
