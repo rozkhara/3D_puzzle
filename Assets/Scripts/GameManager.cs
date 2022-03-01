@@ -29,7 +29,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        highscore = PlayerPrefs.GetInt("highscore");
+        if (PlayerPrefs.HasKey("highscore"))
+        {
+            highscore = PlayerPrefs.GetInt("highscore");
+        }
+        else
+        {
+            highscore = -1;
+        }
+        
 
         isFrozen = false;
         isGameOver = false;
