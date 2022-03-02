@@ -2,29 +2,28 @@ using UnityEngine;
 
 public class Plane : MonoBehaviour
 {
+    public GameObject trigger;
     [SerializeField]
     private float speed;
     private float time;
     public float firstDist;
     private float curTime;
-    public GameObject[] cubes = new GameObject[9];
-    public GameObject collection;
-    bool isCollision = false;
+    [HideInInspector]
+    public bool isCollision = false;
     bool isLack = false;
     bool accelerated = false;
     bool tripleAccelerated = false;
     public bool isLoading = false;
     //private float multiplier = 1f;
     public float Multiplier { get; set; }
+    public GameObject triggerPrefab;
     private bool multiplyLock = false;
     GameManager GM;
     private void Awake()
     {
-        Multiplier = 1 / Mathf.Pow(2, 0.01f);
-    }
-    void Start()
-    {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Multiplier = 1 / Mathf.Pow(2, 0.01f);
+        setSize();
     }
     private void FixedUpdate()
     {
@@ -118,31 +117,25 @@ public class Plane : MonoBehaviour
             else
             {
                 transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
+                trigger.transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
             }
         }
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        isCollision = true;
     }
 
     private void LackTest()
     {
         RaycastHit hit;
-        float maxDist = 7.5f;
 
         bool isRay;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < GM.stageIdx; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < GM.stageIdx; j++)
             {
-                Vector3 curPos = new Vector3(0, 0, 4.5f) + new Vector3(1 - i, 1 - j, 0) * 2;
-                isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, maxDist);
+                Vector3 curPos = new Vector3(0, 0, 1.5f * GM.stageIdx) + new Vector3(-GM.stageIdx+1 + i*2, -GM.stageIdx+1+j*2, 0);
+                isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, Mathf.Infinity);
                 if (!isRay)
                 {
+                    Debug.Log($"{i},{j}");
                     isLack = true;
                     return;
                 }
@@ -159,10 +152,14 @@ public class Plane : MonoBehaviour
                 multiplyLock = true;
             }
         }
-        time = (firstDist + 2f) / speed / Multiplier;
+        time = (firstDist + (GM.stageIdx-1)) / speed / Multiplier;
         curTime = 0.0f;
         transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
-
+        trigger.transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
+    }
+    private void setSize()
+    {
+        transform.localScale = new Vector3(transform.localScale.x * GM.stageIdx, transform.localScale.y * GM.stageIdx, transform.localScale.z);
     }
 }
 
