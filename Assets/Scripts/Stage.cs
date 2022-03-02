@@ -32,15 +32,6 @@ public class Stage : MonoBehaviour
     [SerializeField]
     Text stageText;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-
-        foreach (var cubePos in cubePosList)
-        {
-            Gizmos.DrawWireCube(cubePos, new Vector3(2f, 2f, 2f));
-        }
-    }
     void Start()
     {
         stageIdx = GameManager.instance.stageIdx;
