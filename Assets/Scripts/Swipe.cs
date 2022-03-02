@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Swipe : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Swipe : MonoBehaviour
     CubeController cubeController;
     Rigidbody rb;
     float x, y;
+    public bool rotationCheck, moveCheck;
 
     private bool isButtonPressed;
 
@@ -30,12 +32,18 @@ public class Swipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "TutorialScene")
+        {
+            rotationCheck = false;
+            moveCheck = false;
+        }
         if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             //dragging = false;
             if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
             {
                 cubeController.CounterClock();
+                if (SceneManager.GetActiveScene().name == "TutorialScene") rotationCheck = true;
             }
             else if (x != 0f || y != 0f)
             {
@@ -45,10 +53,13 @@ public class Swipe : MonoBehaviour
                     if (x > 0)
                     {
                         cubeController.Right();
+                        if (SceneManager.GetActiveScene().name == "TutorialScene") moveCheck = true;
                     }
                     else
                     {
                         cubeController.Left();
+                        if (SceneManager.GetActiveScene().name == "TutorialScene") moveCheck = true;
+
                     }
                 }
                 else
@@ -56,10 +67,13 @@ public class Swipe : MonoBehaviour
                     if (y > 0)
                     {
                         cubeController.Up();
+                        if (SceneManager.GetActiveScene().name == "TutorialScene") moveCheck = true;
+
                     }
                     else
                     {
                         cubeController.Down();
+                        if (SceneManager.GetActiveScene().name == "TutorialScene") moveCheck = true;
                     }
                 }
             }
@@ -69,6 +83,8 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(1) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             cubeController.Clock();
+            if (SceneManager.GetActiveScene().name == "TutorialScene") rotationCheck = true;
+
         }
     }
 
