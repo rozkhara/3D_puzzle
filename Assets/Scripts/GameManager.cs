@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -84,6 +85,8 @@ public class GameManager : MonoBehaviour
             instPausePanel = Instantiate(pausePanel, GameObject.Find("Canvas").transform);
             Time.timeScale = 0f;
             isFrozen = true;
+            instPausePanel.transform.GetChild(2).GetComponent<Slider>().value = SoundManager.Instance.GetBGMVolume() * 100;
+            instPausePanel.transform.GetChild(3).GetComponent<Slider>().value = SoundManager.Instance.GetSFXVolume() * 100;
             return;
         }
     }
