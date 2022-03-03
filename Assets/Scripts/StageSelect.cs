@@ -19,4 +19,9 @@ public class StageSelect : MonoBehaviour
     {
         SceneManager.LoadScene("HardScene");
     }
+
+    public void ExitSelectScene()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
