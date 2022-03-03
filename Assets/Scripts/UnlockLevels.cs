@@ -40,9 +40,4 @@ public class UnlockLevels : MonoBehaviour
             hard.GetComponent<Image>().color = new Color(123 / 255f, 125 / 255f, 65 / 255f);
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
