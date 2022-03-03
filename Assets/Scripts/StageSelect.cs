@@ -39,4 +39,48 @@ public class StageSelect : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
+    public void ToSelectScene()
+    {
+        SceneManager.LoadScene("SelectScene");
+
+    }
+
+    public void InGameToMain()
+    {
+        if (SceneManager.GetActiveScene().name == "EasyScene")
+        {
+            if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_easy)
+            {
+                GameManager.instance.highscore_easy = GameManager.instance.stage.stageNum;
+                PlayerPrefs.SetInt("highscoreeasy", GameManager.instance.highscore_easy);
+                PlayerPrefs.Save();
+            }
+
+        }
+        else if (SceneManager.GetActiveScene().name == "MediumScene")
+        {
+            if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_medium)
+            {
+                GameManager.instance.highscore_medium = GameManager.instance.stage.stageNum;
+                PlayerPrefs.SetInt("highscoremedium", GameManager.instance.highscore_medium);
+                PlayerPrefs.Save();
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "HardScene")
+        {
+            if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_hard)
+            {
+                GameManager.instance.highscore_hard = GameManager.instance.stage.stageNum;
+                PlayerPrefs.SetInt("highscorehard", GameManager.instance.highscore_hard);
+                PlayerPrefs.Save();
+            }
+        }
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

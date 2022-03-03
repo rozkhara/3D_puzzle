@@ -77,7 +77,7 @@ public class Plane : MonoBehaviour
                         PlayerPrefs.SetInt("highscoreeasy", GameManager.instance.highscore_easy);
                         PlayerPrefs.Save();
                     }
-                   
+
                 }
                 else if (SceneManager.GetActiveScene().name == "MediumScene")
                 {
@@ -177,7 +177,7 @@ public class Plane : MonoBehaviour
         {
             for (int j = 0; j < GM.stageIdx; j++)
             {
-                Vector3 curPos = new Vector3(0, 0, 1.5f * GM.stageIdx) + new Vector3(-GM.stageIdx+1 + i*2, -GM.stageIdx+1+j*2, 0);
+                Vector3 curPos = new Vector3(0, 0, 1.5f * GM.stageIdx) + new Vector3(-GM.stageIdx + 1 + i * 2, -GM.stageIdx + 1 + j * 2, 0);
                 isRay = Physics.Raycast(curPos, new Vector3(0, 0, -1), out hit, Mathf.Infinity);
                 if (!isRay)
                 {
@@ -198,7 +198,7 @@ public class Plane : MonoBehaviour
                 multiplyLock = true;
             }
         }
-        time = (firstDist + (GM.stageIdx-1)) / speed / Multiplier;
+        time = (firstDist + (GM.stageIdx - 1)) / speed / Multiplier;
         curTime = 0.0f;
         transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
         trigger.transform.position = GameManager.instance.cube.gameObject.transform.position + new Vector3(0, 0, firstDist);
