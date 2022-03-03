@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Plane : MonoBehaviour
 {
@@ -68,12 +69,35 @@ public class Plane : MonoBehaviour
                 GameManager.instance.gameOverPanel.transform.GetChild(1).gameObject.SetActive(true);
                 GameManager.instance.isGameOver = true;
                 Time.timeScale = 0f;
-                if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
+                if (SceneManager.GetActiveScene().name == "EasyScene")
                 {
-                    GameManager.instance.highscore = GameManager.instance.stage.stageNum;
-                    PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
-                    PlayerPrefs.Save();
+                    if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_easy)
+                    {
+                        GameManager.instance.highscore_easy = GameManager.instance.stage.stageNum;
+                        PlayerPrefs.SetInt("highscoreeasy", GameManager.instance.highscore_easy);
+                        PlayerPrefs.Save();
+                    }
+                   
                 }
+                else if (SceneManager.GetActiveScene().name == "MediumScene")
+                {
+                    if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_medium)
+                    {
+                        GameManager.instance.highscore_medium = GameManager.instance.stage.stageNum;
+                        PlayerPrefs.SetInt("highscoremedium", GameManager.instance.highscore_medium);
+                        PlayerPrefs.Save();
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "HardScene")
+                {
+                    if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_hard)
+                    {
+                        GameManager.instance.highscore_hard = GameManager.instance.stage.stageNum;
+                        PlayerPrefs.SetInt("highscorehard", GameManager.instance.highscore_hard);
+                        PlayerPrefs.Save();
+                    }
+                }
+
                 isCollision = false;
                 // Debug.Log("GAME OVER! by Collision");
             }
@@ -88,11 +112,33 @@ public class Plane : MonoBehaviour
                     GameManager.instance.isGameOver = true;
                     // Debug.Log("GAME OVER! by Lack");
                     Time.timeScale = 0f;
-                    if (GameManager.instance.stage.stageNum > GameManager.instance.highscore)
+                    if (SceneManager.GetActiveScene().name == "EasyScene")
                     {
-                        GameManager.instance.highscore = GameManager.instance.stage.stageNum;
-                        PlayerPrefs.SetInt("highscore", GameManager.instance.highscore);
-                        PlayerPrefs.Save();
+                        if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_easy)
+                        {
+                            GameManager.instance.highscore_easy = GameManager.instance.stage.stageNum;
+                            PlayerPrefs.SetInt("highscoreeasy", GameManager.instance.highscore_easy);
+                            PlayerPrefs.Save();
+                        }
+
+                    }
+                    else if (SceneManager.GetActiveScene().name == "MediumScene")
+                    {
+                        if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_medium)
+                        {
+                            GameManager.instance.highscore_medium = GameManager.instance.stage.stageNum;
+                            PlayerPrefs.SetInt("highscoremedium", GameManager.instance.highscore_medium);
+                            PlayerPrefs.Save();
+                        }
+                    }
+                    else if (SceneManager.GetActiveScene().name == "HardScene")
+                    {
+                        if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_hard)
+                        {
+                            GameManager.instance.highscore_hard = GameManager.instance.stage.stageNum;
+                            PlayerPrefs.SetInt("highscorehard", GameManager.instance.highscore_hard);
+                            PlayerPrefs.Save();
+                        }
                     }
                     isLack = false;
                     isLoading = true;

@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject pausePanel;
     private GameObject instPausePanel;
-    public int highscore;
+    public int highscore_easy;
+    public int highscore_medium;
+    public int highscore_hard;
     public int stageIdx;
 
     void Awake()
@@ -30,15 +32,31 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        if (PlayerPrefs.HasKey("highscore"))
+        if (PlayerPrefs.HasKey("highscoreeasy"))
         {
-            highscore = PlayerPrefs.GetInt("highscore");
+            highscore_easy = PlayerPrefs.GetInt("highscoreeasy");
         }
         else
         {
-            highscore = -1;
+            highscore_easy = 0;
         }
-        
+        if (PlayerPrefs.HasKey("highscoremedium"))
+        {
+            highscore_medium = PlayerPrefs.GetInt("highscoremedium");
+        }
+        else
+        {
+            highscore_medium = 0;
+        }
+        if (PlayerPrefs.HasKey("highscorehard"))
+        {
+            highscore_hard = PlayerPrefs.GetInt("highscorehard");
+        }
+        else
+        {
+            highscore_hard = 0;
+        }
+
 
         isFrozen = false;
         isGameOver = false;
