@@ -38,6 +38,15 @@ public class Swipe : MonoBehaviour
             if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
             {
                 cubeController.CounterClock();
+                if (Random.Range(0, 2) == 0)
+                {
+                    SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+                }
+                else
+                {
+                    SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+                }
+                
             }
             else if (x != 0f || y != 0f)
             {
@@ -47,10 +56,26 @@ public class Swipe : MonoBehaviour
                     if (x > 0)
                     {
                         cubeController.Right();
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+                        }
+                        else
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+                        }
                     }
                     else
                     {
                         cubeController.Left();
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+                        }
+                        else
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+                        }
                     }
                 }
                 else
@@ -58,10 +83,26 @@ public class Swipe : MonoBehaviour
                     if (y > 0)
                     {
                         cubeController.Up();
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+                        }
+                        else
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+                        }
                     }
                     else
                     {
                         cubeController.Down();
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+                        }
+                        else
+                        {
+                            SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+                        }
                     }
                 }
             }
@@ -71,6 +112,14 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(1) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             cubeController.Clock();
+            if (Random.Range(0, 2) == 0)
+            {
+                SoundManager.Instance.PlaySFXSound("Click1", 0.7f);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFXSound("Click2", 0.7f);
+            }
         }
     }
 
