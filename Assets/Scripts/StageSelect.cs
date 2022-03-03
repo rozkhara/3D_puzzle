@@ -52,6 +52,8 @@ public class StageSelect : MonoBehaviour
 
     public void InGameToMain()
     {
+        GameManager.instance.isFrozen = false;
+        Time.timeScale = 1f;
         if (SceneManager.GetActiveScene().name == "EasyScene")
         {
             if (GameManager.instance.stage.stageNum > GameManager.instance.highscore_easy)
