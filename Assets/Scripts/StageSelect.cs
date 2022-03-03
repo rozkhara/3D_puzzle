@@ -16,7 +16,7 @@ public class StageSelect : MonoBehaviour
         if (PlayerPrefs.HasKey("highscoreeasy"))
         {
             highscore_easy = PlayerPrefs.GetInt("highscoreeasy");
-            if (highscore_easy >= 50)
+            if (highscore_easy >= 50 || UnlockLevels.isMediumOpened)
             {
                 SceneManager.LoadScene("MediumScene");
             }
@@ -28,7 +28,7 @@ public class StageSelect : MonoBehaviour
         if (PlayerPrefs.HasKey("highscoremedium"))
         {
             highscore_medium = PlayerPrefs.GetInt("highscoremedium");
-            if (highscore_medium >= 50)
+            if (highscore_medium >= 50 || UnlockLevels.isHardOpened)
             {
                 SceneManager.LoadScene("HardScene");
             }

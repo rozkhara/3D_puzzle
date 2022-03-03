@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         StartGame();
+        ExitGame();
     }
 
     void StartGame()
@@ -18,6 +19,18 @@ public class MainMenu : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene(sceneToLoad);
+        }
+    }
+
+    private void ExitGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
     }
 }
