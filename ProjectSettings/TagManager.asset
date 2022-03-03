@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Back
   - Plane
+  - SoundManager
   layers:
   - Default
   - TransparentFX
