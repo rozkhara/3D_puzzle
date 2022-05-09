@@ -34,9 +34,15 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             //dragging = false;
-            if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
+            if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f && Input.mousePosition.x < 960f)
             {
                 cubeController.CounterClock();
+                PlayRandomSound();
+            }
+            else if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f && Input.mousePosition.x >= 960f)
+            {
+                Debug.Log(Input.mousePosition.x);
+                cubeController.Clock();
                 PlayRandomSound();
             }
             else if (x != 0f || y != 0f)
@@ -70,11 +76,6 @@ public class Swipe : MonoBehaviour
             }
             x = 0f;
             y = 0f;
-        }
-        if (Input.GetMouseButtonUp(1) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
-        {
-            cubeController.Clock();
-            PlayRandomSound();
         }
     }
 
