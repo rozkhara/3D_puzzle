@@ -22,7 +22,7 @@ public class Swipe : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cubeController = GameManager.instance.cube;
-        screenMidPoint= GameObject.Find("Canvas").GetComponent<Canvas>().gameObject.transform.position;
+        screenMidPoint = GameObject.Find("Canvas").GetComponent<Canvas>().gameObject.transform.position;
     }
 
     // Update is called once per frame
