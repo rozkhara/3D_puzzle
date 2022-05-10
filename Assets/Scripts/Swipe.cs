@@ -18,7 +18,7 @@ public class Swipe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sensitivity = 1f;
+        sensitivity = 2f;
 
         rb = GetComponent<Rigidbody>();
         cubeController = GameManager.instance.cube;
@@ -43,7 +43,7 @@ public class Swipe : MonoBehaviour
                 cumulatedX += Vector2.Dot(Vector2.right, movVec);
                 cumulatedY += Vector2.Dot(Vector2.up, movVec);
                 //determineLoc when gap between magnitude of cumulate value exceeded specific value
-                if (Mathf.Abs(Mathf.Abs(cumulatedX) - Mathf.Abs(cumulatedY)) > 200 - sensitivity*20)
+                if (Mathf.Abs(Mathf.Abs(cumulatedX) - Mathf.Abs(cumulatedY)) > 100 - sensitivity*20)
                 {
                     determinedDir = true;
                     if(Mathf.Abs(cumulatedX) > Mathf.Abs(cumulatedY))
@@ -77,21 +77,22 @@ public class Swipe : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
-            cumulatedX = 0f;
-            cumulatedY = 0f;
             onTracking = false;
             //cw rotation
-            if (!determinedDir && Mathf.Abs(cumulatedY)<= sensitivity && Mathf.Abs(cumulatedX)<= sensitivity)
+            if (!determinedDir && Mathf.Abs(cumulatedY)<= sensitivity/2000f && Mathf.Abs(cumulatedX)<= sensitivity/2000f)
             {
-                cubeController.RotToTarget(Quaternion.Euler(Vector3.forward * -90)*GameManager.instance.stage.cubes.rotation) ;
+                cubeController.RotToTarget(Quaternion.Euler(Vector3.forward * -90)*GameManager.instance.stage.cubes.rotation);
+                cumulatedX = 0f;
+                cumulatedY = 0f;
                 return;
             }
+            cumulatedX = 0f;
+            cumulatedY = 0f;
             determinedDir = false;
             Quaternion cubeRot = GameManager.instance.stage.cubes.transform.rotation;
             //Round Rotation
             Quaternion targetRot = Quaternion.Euler(new Vector3(((int)(cubeRot.eulerAngles.x / 90) + (int)((cubeRot.eulerAngles.x%90)/45)) *90, ((int)(cubeRot.eulerAngles.y / 90) + (int)((cubeRot.eulerAngles.y % 90) / 45)) * 90, ((int)(cubeRot.eulerAngles.z / 90) + (int)((cubeRot.eulerAngles.z % 90) / 45)) * 90));
             cubeController.RotToTarget(targetRot);
-            Debug.Log(targetRot.eulerAngles);
         }
     }
     private void PlayRandomSound()

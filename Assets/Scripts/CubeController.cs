@@ -18,11 +18,10 @@ public class CubeController : MonoBehaviour
     {
         timer = 0f;
         Quaternion origin =  GameManager.instance.stage.cubes.rotation;
-        Debug.Log(target);
-        while(timer<0.3f)
+        while(timer<0.05f)
         {
             timer += Time.deltaTime;
-            GameManager.instance.stage.cubes.rotation =  Quaternion.Lerp(origin, target, timer / 0.3f);
+            GameManager.instance.stage.cubes.rotation =  Quaternion.Lerp(origin, target, timer / 0.05f);
             yield return null;
         }
         GameManager.instance.stage.cubes.rotation = target;
