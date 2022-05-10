@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour
     // 이후 상황에 맞추어 삭제하거나 변형할 것
     private void Start()
     {
-        //PlayBGMSound(0.1f);
+        PlayBGMSound(0.1f);
     }
 
     // 효과음 재생 : 이름을 필수 매개변수, 볼륨을 선택적 매개변수로 지정
