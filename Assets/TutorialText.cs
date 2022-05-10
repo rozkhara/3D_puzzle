@@ -15,7 +15,7 @@ public class TutorialText : MonoBehaviour
 
 
     private void Update()
-    {
+    {/*
         if (swipe.GetComponent<Swipe>().rotationCheck == true)
         {
             tutorialText.text = texts[0];
@@ -23,6 +23,6 @@ public class TutorialText : MonoBehaviour
         if (swipe.GetComponent<Swipe>().moveCheck == true)
         {
             tutorialText.text = texts[1];
-        }
+        }*/
     }
 }
