@@ -22,9 +22,10 @@ public class ViewController : MonoBehaviour
         ratio = 1 / 3.0f; // 가로, 세로 중 작은것 기준 1/3을 차지하도록 설정
         width = Screen.width;
         height = Screen.height;
+        Debug.Log($"{width}, {height}");
         if (height > width)
         {
-            ratio = ratio / width * height;
+            ratio = ratio / height * width;
         }
         cam = gameObject.GetComponent<Camera>();
         cam.orthographicSize = 6 / ratio; // 6( 큐브 오브젝트의 크기 )이 카메라의 y축 크기에 ratio 만큼 차지하도록 설정 
