@@ -2,117 +2,98 @@ using UnityEngine;
 
 public class Swipe : MonoBehaviour
 {
-
-    [SerializeField]
-    float rotationSpeed = 100f;
     //bool dragging = false;
     CubeController cubeController;
     Rigidbody rb;
-    float x, y;
-    Vector2 initVector, endVector;
-    float theta;
-    float thetaThreshold = 45.0f;
-    Vector3 screenMidPoint;
-    public bool rotationCheck, moveCheck;
+    Vector2 prevLoc, CurLoc;
 
-    private bool isButtonPressed;
+    [SerializeField]
+    private float sensitivity;
 
+    private bool determinedDir = false;
+    private int rotDir = -1;
+    private bool onTracking = false;
+    private float cumulatedX=0f;
+    private float cumulatedY=0f;
     // Start is called before the first frame update
     void Start()
     {
+        sensitivity = 1f;
+
         rb = GetComponent<Rigidbody>();
         cubeController = GameManager.instance.cube;
-        screenMidPoint = GameObject.Find("Canvas").GetComponent<Canvas>().gameObject.transform.position;
+        //screenMidPoint = GameObject.Find("Canvas").GetComponent<Canvas>().gameObject.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            initVector = Input.mousePosition - screenMidPoint;
-            Debug.Log("initPos is " + initVector);
-        }
+        //Debug.Log($"ontracking:{onTracking}, determinedDir:{determinedDir}, rotDir{rotDir}");
 
-        if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
+        if (cubeController.rotationLock)
+            return;
+        if (onTracking)
         {
-            endVector = Input.mousePosition - screenMidPoint;
-            Debug.Log("endPos is " + endVector);
-            theta = Vector2.SignedAngle(initVector, endVector);
-            Debug.Log("Theta is " + theta);
-
-            //dragging = false;
-            if (Mathf.Abs(x) < 0.09f && Mathf.Abs(y) < 0.09f)
+            prevLoc = CurLoc;
+            CurLoc = Input.mousePosition;
+            Vector2 movVec = CurLoc - prevLoc;
+            //not determined whether rotate along x/y or cw yet
+            if (!determinedDir)
             {
-                //cubeController.CounterClock();
-                //PlayRandomSound();
-            }
-            else if (x != 0f || y != 0f)
-            {
-                if (Mathf.Abs(theta) > thetaThreshold && Mathf.Abs(theta) < 180.0f - thetaThreshold)
+                cumulatedX += Vector2.Dot(Vector2.right, movVec);
+                cumulatedY += Vector2.Dot(Vector2.up, movVec);
+                //determineLoc when gap between magnitude of cumulate value exceeded specific value
+                if (Mathf.Abs(Mathf.Abs(cumulatedX) - Mathf.Abs(cumulatedY)) > 200 - sensitivity*20)
                 {
-                    if (theta > 0.0f)
+                    determinedDir = true;
+                    if(Mathf.Abs(cumulatedX) > Mathf.Abs(cumulatedY))
                     {
-                        cubeController.CounterClock();
-                        PlayRandomSound();
+                        rotDir = 0;
                     }
                     else
                     {
-                        cubeController.Clock();
-                        PlayRandomSound();
+                        rotDir = 1;
                     }
                 }
-                else if (Mathf.Abs(x) > Mathf.Abs(y))
+            }
+            else
+            {
+                //rotation left and right
+                if(rotDir == 0)
                 {
-                    if (x > 0)
-                    {
-                        cubeController.Right();
-                        PlayRandomSound();
-                    }
-                    else
-                    {
-                        cubeController.Left();
-                        PlayRandomSound();
-                    }
+                    GameManager.instance.stage.cubes.Rotate(Vector2.Dot(Vector2.right, movVec.normalized) * sensitivity * Vector2.down, Space.World);
                 }
                 else
                 {
-                    if (y > 0)
-                    {
-                        cubeController.Up();
-                        PlayRandomSound();
-                    }
-                    else
-                    {
-                        cubeController.Down();
-                        PlayRandomSound();
-                    }
+                    GameManager.instance.stage.cubes.Rotate(Vector2.Dot(Vector2.up, movVec.normalized) * sensitivity * Vector2.right, Space.World);
                 }
             }
-            x = 0f;
-            y = 0f;
-            initVector = new Vector2(0, 0);
-            endVector = new Vector2(0, 0);
-            theta = 0.0f;
         }
-        //if (Input.GetMouseButtonUp(1) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
-        //{
-        //    cubeController.Clock();
-        //    PlayRandomSound();
-        //}
-    }
-
-    private void FixedUpdate()
-    {
-        //if (dragging)
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            x += Input.GetAxis("Mouse X") * rotationSpeed * Time.fixedDeltaTime;
-            y += Input.GetAxis("Mouse Y") * rotationSpeed * Time.fixedDeltaTime;
+            CurLoc = Input.mousePosition;
+            Debug.Log("initPos is " + CurLoc);
+            onTracking = true;
         }
-
+        if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
+        {
+            cumulatedX = 0f;
+            cumulatedY = 0f;
+            onTracking = false;
+            //cw rotation
+            if (!determinedDir && Mathf.Abs(cumulatedY)<= sensitivity && Mathf.Abs(cumulatedX)<= sensitivity)
+            {
+                cubeController.RotToTarget(Quaternion.Euler(Vector3.forward * -90)*GameManager.instance.stage.cubes.rotation) ;
+                return;
+            }
+            determinedDir = false;
+            Quaternion cubeRot = GameManager.instance.stage.cubes.transform.rotation;
+            //Round Rotation
+            Quaternion targetRot = Quaternion.Euler(new Vector3(((int)(cubeRot.eulerAngles.x / 90) + (int)((cubeRot.eulerAngles.x%90)/45)) *90, ((int)(cubeRot.eulerAngles.y / 90) + (int)((cubeRot.eulerAngles.y % 90) / 45)) * 90, ((int)(cubeRot.eulerAngles.z / 90) + (int)((cubeRot.eulerAngles.z % 90) / 45)) * 90));
+            cubeController.RotToTarget(targetRot);
+            Debug.Log(targetRot.eulerAngles);
+        }
     }
-
     private void PlayRandomSound()
     {
         if (Random.Range(0, 2) == 0)
