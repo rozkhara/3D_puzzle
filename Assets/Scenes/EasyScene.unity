@@ -429,11 +429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104219060278364445, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 900
+      value: 1700
       objectReference: {fileID: 0}
     - target: {fileID: 4104219060278364445, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 450
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 4104219060278364445, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -486,6 +486,10 @@ PrefabInstance:
     - target: {fileID: 4104219060278364446, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
       propertyPath: m_Name
       value: GameOverPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104219060278364446, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2311117594d48c34eb67cca55c890e93, type: 3}
@@ -1767,9 +1771,9 @@ RectTransform:
   m_Father: {fileID: 1090697969}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 150, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 575, y: 75}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1707619972
@@ -1793,17 +1797,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6e3aee30b607bb34685c388fc4be60fc, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: f4b34a3974fad484bbc0a4d88e252e88, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 50
-    m_Alignment: 0
-    m_AlignByGeometry: 0
+    m_MaxSize: 100
+    m_Alignment: 3
+    m_AlignByGeometry: 1
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: HIGH SCORE
 --- !u!222 &1707619973
@@ -1885,12 +1889,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6e3aee30b607bb34685c388fc4be60fc, type: 3}
-    m_FontSize: 80
+    m_Font: {fileID: 12800000, guid: f4b34a3974fad484bbc0a4d88e252e88, type: 3}
+    m_FontSize: 150
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 8
-    m_MaxSize: 80
+    m_MinSize: 1
+    m_MaxSize: 167
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1

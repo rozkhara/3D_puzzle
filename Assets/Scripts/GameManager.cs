@@ -64,10 +64,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            FreezeAll();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    FreezeAll();
+        //}
         // Debug.Log(highscore);
     }
 

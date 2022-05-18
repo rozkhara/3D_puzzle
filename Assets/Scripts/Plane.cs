@@ -162,8 +162,8 @@ public class Plane : MonoBehaviour
             }
             else
             {
-                transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
-                trigger.transform.position += (Camera.main.transform.position - transform.position).normalized * Time.deltaTime * speed * Multiplier;
+                transform.position += new Vector3(0.0f, 0.0f, -1.0f) * Time.deltaTime * speed * Multiplier;
+                trigger.transform.position += new Vector3(0.0f, 0.0f, -1.0f) * Time.deltaTime * speed * Multiplier;
             }
         }
     }

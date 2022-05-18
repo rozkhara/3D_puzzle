@@ -85,4 +85,9 @@ public class StageSelect : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void SettingButton()
+    {
+        GameManager.instance.FreezeAll();
+    }
+
 }
