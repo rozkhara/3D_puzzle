@@ -7,9 +7,9 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Camera camera = GetComponent<Camera>();
+        Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Rect rect = camera.rect;
-        float scaleheight = ((float)Screen.width / Screen.height) / ((float)9 / 16); // (가로 / 세로)
+        float scaleheight = ((float)Screen.width / Screen.height) / ((float)16 / 9); // (가로 / 세로)
         float scalewidth = 1f / scaleheight;
         if (scaleheight < 1)
         {
