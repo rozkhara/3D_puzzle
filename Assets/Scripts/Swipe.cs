@@ -34,14 +34,13 @@ public class Swipe : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !(GameManager.instance.isFrozen) && !(GameManager.instance.isGameOver))
         {
             //dragging = false;
-            if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f)
+            if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f && Input.mousePosition.x <= Screen.width / 2)
             {
                 cubeController.CounterClock();
                 PlayRandomSound();
             }
-            else if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f && Input.mousePosition.x >= 960f)
+            else if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f)
             {
-                Debug.Log(Input.mousePosition.x);
                 cubeController.Clock();
                 PlayRandomSound();
             }

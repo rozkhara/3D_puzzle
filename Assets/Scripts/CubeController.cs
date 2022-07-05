@@ -94,8 +94,6 @@ public class CubeController : MonoBehaviour
         GameManager.instance.stage.cubes.Rotate(Vector3.down * (90 - 90 * timer * speed), Space.World);
     }
 
-
-
     public void Clock()
     {
         if (curCoolTime != 0) return;
