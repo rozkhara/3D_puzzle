@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    List<int> cubeList = new List<int>();
-    public List<Vector3> cubePosList = new List<Vector3>();
-    public List<Vector3> spawnPoints = new List<Vector3>();
+    private List<int> cubeList = new List<int>();
+    private List<Vector3> cubePosList = new List<Vector3>();
+    private List<Vector3> spawnPoints = new List<Vector3>();
 
     [SerializeField]
     private GameObject cube;
