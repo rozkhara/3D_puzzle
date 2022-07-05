@@ -36,6 +36,12 @@ public class Swipe : MonoBehaviour
             //dragging = false;
             if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f)
             {
+                cubeController.CounterClock();
+                PlayRandomSound();
+            }
+            else if (Mathf.Abs(x) < 0.12f && Mathf.Abs(y) < 0.12f && Input.mousePosition.x >= 960f)
+            {
+                Debug.Log(Input.mousePosition.x);
                 cubeController.Clock();
                 PlayRandomSound();
             }
