@@ -39,9 +39,9 @@ public class AspectRatioController : MonoBehaviour
 
     // Aspect ratio width and height.
     [SerializeField]
-    private float aspectRatioWidth = 16;
+    private float aspectRatioWidth = 9;
     [SerializeField]
-    private float aspectRatioHeight = 9;
+    private float aspectRatioHeight = 16;
 
     // Minimum and maximum values for window width/height in pixel.
     [SerializeField]

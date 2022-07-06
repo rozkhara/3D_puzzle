@@ -1287,7 +1287,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2195,8 +2195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ddf4ab06c52704dac07a7262b52b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePosList: []
-  spawnPoints: []
   cube: {fileID: 4724147543575611782, guid: 0c192394827a3e245a54ae47b209051f, type: 3}
   cubes: {fileID: 2049605634}
   stageNum: 0
