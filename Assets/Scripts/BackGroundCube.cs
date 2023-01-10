@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class BackGroundCube : MonoBehaviour
 {
+    private Vector3 axis;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        axis = Random.onUnitSphere;
     }
+
 
     private void Update()
     {
-        transform.Rotate(Vector3.up * 90 * Time.deltaTime, Space.World);
+        transform.Rotate(axis * 90 * Time.deltaTime, Space.World);
 
         if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "SelectScene")
         {
